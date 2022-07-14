@@ -1,5 +1,5 @@
 "use strict"
 
-import { dnd } from "./lib/lib"
+import dnd from "./lib/lib"
 
 document.addEventListener("DOMContentLoaded", () => {})

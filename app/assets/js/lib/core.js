@@ -1,4 +1,4 @@
-export const dnd = function (selector) {
+const dnd = function (selector) {
     return new dnd.prototype.init(selector)
 }
 
@@ -16,3 +16,5 @@ dnd.prototype.init = function (selector) {
 dnd.prototype.init.prototype = dnd.prototype
 
 window.dnd = dnd
+
+export default dnd
