@@ -7,8 +7,13 @@ dnd.prototype.init = function (selector) {
         return this
     }
 
-    Object.assign(this, document.querySelectorAll(selector))
     this.length = document.querySelectorAll(selector).length
+
+    if (this.length == 1) {
+        this.elements = document.querySelector(selector)
+    } else {
+        this.elements = document.querySelectorAll(selector)
+    }
 
     return this
 }

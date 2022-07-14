@@ -1,39 +1,43 @@
 import dnd from "../core"
 
 dnd.prototype.hide = function () {
-    for (let index = 0; index < this.length; index++) {
-        if (this[index].style) {
-            this[index].style.display = "none"
-        } else {
-            continue
-        }
+    if (this.length > 1) {
+        this.elements.forEach((element) => {
+            element.style.display = "none"
+        })
+    } else {
+        this.elements.style.display = "none"
     }
 
     return this
 }
 
 dnd.prototype.show = function (value = "block") {
-    for (let index = 0; index < this.length; index++) {
-        if (this[index].style) {
-            this[index].style.display = value
-        } else {
-            continue
-        }
+    if (this.length > 1) {
+        this.elements.forEach((element) => {
+            element.style.display = value
+        })
+    } else {
+        this.elements.style.display = value
     }
 
     return this
 }
 
 dnd.prototype.toogle = function (value = "block") {
-    for (let index = 0; index < this.length; index++) {
-        if (this[index].style) {
-            if (this[index].style.display === "none") {
-                this[index].style.display = value
+    if (this.length > 1) {
+        this.elements.forEach((element) => {
+            if (element.style.display === "none") {
+                element.style.display = value
             } else {
-                this[index].style.display = "none"
+                element.style.display = "none"
             }
+        })
+    } else {
+        if (this.elements.style.display === "none") {
+            this.elements.style.display = value
         } else {
-            continue
+            this.elements.style.display = "none"
         }
     }
 
