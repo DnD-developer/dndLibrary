@@ -1,0 +1,12 @@
+.Ds_Store
+.AppleDouble
+.LSOverride
+.vs
+.psd
+.vscode
+
+node_modules/
+**/assets/css
+**/*.html
+package-lock.json
+dist/

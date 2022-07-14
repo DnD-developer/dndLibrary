@@ -1,0 +1,1 @@
+(()=>{"use strict";const t=function(e){return new t.prototype.init(e)};t.prototype.init=function(t){return t?(this.length=document.querySelectorAll(t).length,1==this.length?this.elements=document.querySelector(t):this.elements=document.querySelectorAll(t),this):this},t.prototype.init.prototype=t.prototype,window.dnd=t})();
