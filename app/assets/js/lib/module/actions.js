@@ -33,3 +33,16 @@ dnd.prototype.closest = function (selector) {
 
     return this
 }
+
+dnd.prototype.siblings = function () {
+    if ((this.length = 1)) {
+        const allChildren = [...this.elements.parentNode.children],
+            mainElement = this.elements
+        this.elements = allChildren.filter((item) => {
+            return item != mainElement
+        })
+        this.length = this.elements.length
+    }
+
+    return this
+}
