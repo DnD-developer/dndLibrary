@@ -12,7 +12,7 @@ dnd.prototype.init = function (selector) {
     if (this.length == 1) {
         this.elements = document.querySelector(selector)
     } else {
-        this.elements = document.querySelectorAll(selector)
+        this.elements = [...document.querySelectorAll(selector)]
     }
 
     return this
