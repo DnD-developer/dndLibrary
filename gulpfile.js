@@ -213,7 +213,7 @@ function buildProdJs() {
                 })
             )
             //        .pipe(dest(distServer + "assets/js"))
-            .pipe(dest("./production/"))
+            .pipe(dest("./build/"))
     )
 }
 
@@ -235,8 +235,7 @@ function scssProd() {
                 suffix: ".min"
             })
         )
-        .pipe(dest("app/assets/css"))
-        .pipe(dest("./production/" + "css"))
+        .pipe(dest("./build/" + "css"))
     //        .pipe(dest(distServer + "/assets/css"))
 }
 
