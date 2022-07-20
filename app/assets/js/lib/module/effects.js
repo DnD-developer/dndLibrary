@@ -30,72 +30,15 @@ dnd.prototype.animateStart = function ({ duration, animateAction, maxValue, fina
     return _animationMake
 }
 
-dnd.prototype.fadeIn = function ({ duration, display = "block", finallyFunction }) {
+dnd.prototype.applyAnimateIn = function ({ duration, display, finallyFunction, styleProperty, maxValue = 1, units = "" }) {
     const _applyAnimate = (elem) => {
-        const _fadeIn = (stepAnimate) => {
+        const _animateIn = (stepAnimate) => {
                 elem.style.display = display
-                elem.style.opacity = stepAnimate
+                elem.style[styleProperty] = `${stepAnimate}${units}`
             },
             ani = this.animateStart({
                 duration,
-                animateAction: _fadeIn,
-                maxValue: 1,
-                finallyFunction
-            })
-
-        requestAnimationFrame(ani)
-    }
-
-    if (this.length > 1) {
-        this.elements.forEach((elem) => {
-            _applyAnimate(elem)
-        })
-    } else {
-        _applyAnimate(this.elements)
-    }
-
-    return this
-}
-
-dnd.prototype.fadeOut = function ({ duration, finallyFunction }) {
-    const _applyAnimate = (elem) => {
-        const _fadeOut = (stepAnimate) => {
-                elem.style.opacity = 1 - stepAnimate
-
-                if (stepAnimate === 1) {
-                    elem.style.display = "none"
-                }
-            },
-            ani = this.animateStart({
-                duration,
-                animateAction: _fadeOut,
-                maxValue: 1,
-                finallyFunction
-            })
-
-        requestAnimationFrame(ani)
-    }
-
-    if (this.length > 1) {
-        this.elements.forEach((elem) => {
-            _applyAnimate(elem)
-        })
-    } else {
-        _applyAnimate(this.elements)
-    }
-
-    return this
-}
-
-dnd.prototype.widthIn = function ({ duration, display = "block", maxValue = 100, units = "", finallyFunction }) {
-    const _applyAnimate = (elem) => {
-        const _widthIn = (stepAnimate) => {
-                elem.style.display = display
-                elem.style.width = `${stepAnimate}${units}`
-            },
-            ani = this.animateStart({
-                duration,
-                animateAction: _widthIn,
+                animateAction: _animateIn,
                 maxValue,
                 finallyFunction
             })
@@ -110,14 +53,12 @@ dnd.prototype.widthIn = function ({ duration, display = "block", maxValue = 100,
     } else {
         _applyAnimate(this.elements)
     }
-
-    return this
 }
 
-dnd.prototype.widthOut = function ({ duration, maxValue = 100, units = "", finallyFunction }) {
+dnd.prototype.applyAnimateOut = function ({ duration, finallyFunction, styleProperty, maxValue = 1, units = "" }) {
     const _applyAnimate = (elem) => {
-        const _widthOut = (stepAnimate) => {
-                elem.style.width = `${maxValue - stepAnimate}${units}`
+        const _animateOut = (stepAnimate) => {
+                elem.style[styleProperty] = `${maxValue - stepAnimate}${units}`
 
                 if (stepAnimate === maxValue) {
                     elem.style.display = "none"
@@ -125,7 +66,7 @@ dnd.prototype.widthOut = function ({ duration, maxValue = 100, units = "", final
             },
             ani = this.animateStart({
                 duration,
-                animateAction: _widthOut,
+                animateAction: _animateOut,
                 maxValue,
                 finallyFunction
             })
@@ -140,6 +81,80 @@ dnd.prototype.widthOut = function ({ duration, maxValue = 100, units = "", final
     } else {
         _applyAnimate(this.elements)
     }
+}
+// !Технические методы end
+
+dnd.prototype.fadeIn = function ({ duration, display = "block", finallyFunction }) {
+    this.applyAnimateIn({
+        duration,
+        display,
+        finallyFunction,
+        styleProperty: "opacity"
+    })
 
     return this
 }
+
+dnd.prototype.fadeOut = function ({ duration, finallyFunction }) {
+    this.applyAnimateOut({
+        duration,
+        finallyFunction,
+        styleProperty: "opacity"
+    })
+
+    return this
+}
+
+dnd.prototype.fadeToogle = function ({ duration, display = "block", finallyFunction }) {
+    const _selectAnimate = (elem) => {
+        if (window.getComputedStyle(elem).display === "none") {
+            this.applyAnimateIn({
+                duration,
+                display,
+                finallyFunction,
+                styleProperty: "opacity"
+            })
+        } else {
+            this.applyAnimateOut({
+                duration,
+                finallyFunction,
+                styleProperty: "opacity"
+            })
+        }
+    }
+    if (this.length > 1) {
+        this.elements.forEach((elem) => _selectAnimate(elem))
+    } else {
+        _selectAnimate(this.elements)
+    }
+
+    return this
+}
+// !прозрачность end
+
+dnd.prototype.widthIn = function ({ duration, display = "block", maxValue = 100, units = "", finallyFunction }) {
+    this.applyAnimateIn({
+        duration,
+        display,
+        finallyFunction,
+        styleProperty: "width",
+        maxValue,
+        units
+    })
+
+    return this
+}
+
+dnd.prototype.widthOut = function ({ duration, maxValue = 100, units = "", finallyFunction }) {
+    this.applyAnimateOut({
+        duration,
+        finallyFunction,
+        styleProperty: "width",
+        maxValue,
+        units
+    })
+
+    return this
+}
+
+// !Ширина end
