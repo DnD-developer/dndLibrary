@@ -11,6 +11,22 @@ html(lang="ru")
 
         .wrapper
             .content
+
+                .menu_item-active(style = "width: 100px")
+                    button.dropdown-btn(style = "width: 100px; height: auto; margin: 50px; display: block") Меню
+                    ul.dropdown-list(style = "margin-left: 50px;")
+                        li.dropdown-item
+                            a.dropdown-link(href="#") action1
+                        li.dropdown-item
+                            a.dropdown-link(href="#") action2
+                        li.dropdown-item
+                            a.dropdown-link(href="#") action3
+                        li.dropdown-item
+                            a.dropdown-link(href="#") action4
+                        li.dropdown-item
+                            a.dropdown-link(href="#") action5
+                        li.dropdown-item
+                            a.dropdown-link(href="#") action6
                 button.btnClick(style = "width: 300px; height: auto; margin: 50px; display: block")
                     span Кликни
                 button.test(style = "width: 300px; height: auto; margin: 50px; display:none")

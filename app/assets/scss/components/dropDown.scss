@@ -1,0 +1,34 @@
+.dnd-dropdown__menu {
+    position: relative;
+}
+
+.dnd-dropdown__btn {
+    cursor: pointer;
+}
+
+.dnd-dropdown__list {
+    position: absolute;
+    display: none;
+    width: 100%;
+    top: 100%;
+    left: 0;
+    border: 1px solid $dark;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.dnd-dropdown__item {
+    cursor: pointer;
+    width: 100%;
+    border-bottom: 1px solid $dark;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
