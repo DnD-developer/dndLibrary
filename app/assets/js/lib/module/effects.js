@@ -30,12 +30,13 @@ dnd.prototype.animateStart = function ({ duration, animateAction, maxValue, fina
     return _animationMake
 }
 
-dnd.prototype.applyAnimateIn = function ({ duration, display, finallyFunction, styleProperty, maxValue = 1, units = "", autoValue = false }) {
-    const _applyAnimate = (elem) => {
+dnd.prototype.applyAnimateIn = function ({ elem, duration, display, finallyFunction, styleProperty, maxValue, units, autoValue }) {
+    const _applyAnimate = () => {
         let triggerStart = true
         if (autoValue && triggerStart) {
             elem.style.display = display
-            maxValue = +window.getComputedStyle(elem)[styleProperty].replace(/px/, "")
+            elem.style[styleProperty] = "auto"
+            maxValue = +window.getComputedStyle(elem)[styleProperty].replace(/px|%/, "")
             units = "px"
             triggerStart = false
             elem.style.display = "none"
@@ -54,20 +55,14 @@ dnd.prototype.applyAnimateIn = function ({ duration, display, finallyFunction, s
         requestAnimationFrame(ani)
     }
 
-    if (this.length > 1) {
-        this.elements.forEach((elem) => {
-            _applyAnimate(elem)
-        })
-    } else {
-        _applyAnimate(this.elements)
-    }
+    _applyAnimate()
 }
 
-dnd.prototype.applyAnimateOut = function ({ duration, finallyFunction, styleProperty, maxValue = 1, units = "", autoValue = false }) {
-    const _applyAnimate = (elem) => {
+dnd.prototype.applyAnimateOut = function ({ elem, duration, finallyFunction, styleProperty, maxValue, units, autoValue }) {
+    const _applyAnimate = () => {
         let triggerStart = true
         if (autoValue && triggerStart) {
-            maxValue = +window.getComputedStyle(elem)[styleProperty].replace(/px/, "")
+            maxValue = +window.getComputedStyle(elem)[styleProperty].replace(/px|%/, "")
             units = "px"
             triggerStart = false
         }
@@ -89,126 +84,104 @@ dnd.prototype.applyAnimateOut = function ({ duration, finallyFunction, styleProp
         requestAnimationFrame(ani)
     }
 
-    if (this.length > 1) {
-        this.elements.forEach((elem) => {
-            _applyAnimate(elem)
+    _applyAnimate()
+}
+
+dnd.prototype.selectAnimate = function ({ elem, duration, display, finallyFunction, styleProperty, maxValue, units, autoValue }) {
+    if (window.getComputedStyle(elem).display === "none") {
+        this.applyAnimateIn({
+            elem,
+            duration,
+            display,
+            finallyFunction,
+            styleProperty,
+            maxValue,
+            units,
+            autoValue
         })
     } else {
-        _applyAnimate(this.elements)
+        this.applyAnimateOut({
+            elem,
+            duration,
+            finallyFunction,
+            styleProperty,
+            maxValue,
+            units,
+            autoValue
+        })
     }
 }
-// !Технические методы end
 
-dnd.prototype.fadeIn = function ({ duration, display = "block", finallyFunction, maxValue = 1, units = "" }) {
-    this.applyAnimateIn({
-        duration,
-        display,
-        finallyFunction,
-        styleProperty: "opacity",
-        maxValue,
-        units
-    })
-
-    return this
-}
-
-dnd.prototype.fadeOut = function ({ duration, finallyFunction, maxValue = 1, units = "" }) {
-    this.applyAnimateOut({
-        duration,
-        finallyFunction,
-        styleProperty: "opacity",
-        maxValue,
-        units
-    })
-
-    return this
-}
-
-dnd.prototype.fadeToogle = function ({ duration, display = "block", finallyFunction, maxValue = 1, units = "" }) {
-    const _selectAnimate = (elem) => {
-        if (window.getComputedStyle(elem).display === "none") {
-            this.applyAnimateIn({
+dnd.prototype.callAnimate = function ({ animateFunction, duration, display, styleProperty, finallyFunction, maxValue, units, autoValue }) {
+    if (this.length > 1) {
+        this.elements.forEach((elem) =>
+            this[animateFunction]({
+                elem,
                 duration,
                 display,
                 finallyFunction,
-                styleProperty: "opacity",
+                styleProperty,
                 maxValue,
+                autoValue,
                 units
             })
-        } else {
-            this.applyAnimateOut({
-                duration,
-                finallyFunction,
-                styleProperty: "opacity",
-                maxValue,
-                units
-            })
-        }
-    }
-    if (this.length > 1) {
-        this.elements.forEach((elem) => _selectAnimate(elem))
+        )
     } else {
-        _selectAnimate(this.elements)
+        this[animateFunction]({
+            elem: this.elements,
+            duration,
+            display,
+            finallyFunction,
+            styleProperty,
+            maxValue,
+            autoValue,
+            units
+        })
     }
-
-    return this
 }
-// !прозрачность end
 
-dnd.prototype.widthIn = function ({ duration, display = "block", maxValue = 100, units = "", finallyFunction, autoValue = false }) {
-    this.applyAnimateIn({
+// !Технические методы end
+
+dnd.prototype.animateIn = function ({ duration, display = "block", styleProperty, finallyFunction, maxValue = 1, units = "", autoValue = false }) {
+    this.callAnimate({
+        animateFunction: "applyAnimateIn",
         duration,
         display,
         finallyFunction,
-        styleProperty: "width",
+        styleProperty,
         maxValue,
-        units,
-        autoValue
+        autoValue,
+        units
     })
 
     return this
 }
 
-dnd.prototype.widthOut = function ({ duration, maxValue = 100, units = "", finallyFunction, autoValue = false }) {
-    this.applyAnimateOut({
-        duration,
-        finallyFunction,
-        styleProperty: "width",
-        maxValue,
-        units,
-        autoValue
-    })
-
-    return this
-}
-
-// !Ширина end
-
-dnd.prototype.heightIn = function ({ duration, display = "block", maxValue = 100, units = "", finallyFunction, autoValue = false }) {
-    this.applyAnimateIn({
+dnd.prototype.animateOut = function ({ duration, finallyFunction, display = "block", styleProperty, maxValue = 1, units = "", autoValue = false }) {
+    this.callAnimate({
+        animateFunction: "applyAnimateOut",
         duration,
         display,
         finallyFunction,
-        styleProperty: "height",
+        styleProperty,
         maxValue,
-        units,
-        autoValue
+        autoValue,
+        units
     })
-
     return this
 }
 
-dnd.prototype.heightOut = function ({ duration, maxValue = 100, units = "", finallyFunction, autoValue = false }) {
-    this.applyAnimateOut({
+dnd.prototype.animateToogle = function ({ duration, display = "block", styleProperty, finallyFunction, maxValue = 1, units = "", autoValue = false }) {
+    this.callAnimate({
+        animateFunction: "selectAnimate",
         duration,
+        display,
         finallyFunction,
-        styleProperty: "height",
+        styleProperty,
         maxValue,
-        units,
-        autoValue
+        autoValue,
+        units
     })
 
     return this
 }
-
-// !Высота end
