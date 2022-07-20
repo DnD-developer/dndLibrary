@@ -235,7 +235,7 @@ function scssProd() {
                 suffix: ".min"
             })
         )
-        .pipe(dest("./build/" + "css"))
+        .pipe(dest("./build/"))
     //        .pipe(dest(distServer + "/assets/css"))
 }
 
