@@ -44,11 +44,18 @@ html(lang="ru")
                             li.dropdown-item
                                 a.dropdown-link(href="#") action6
 
-                button.btnClick(style = "width: 300px; height: auto; margin: 50px; display: block")
+                button.btnClick(style = "width: 300px; height: auto; margin: 50px; display: block; overflow: hidden")
                     span Кликни
-                button.test(style = "width: 300px; height: auto; margin: 50px; display:none;")
-                    span появился
+                button.test(style = "width: 300px; height: auto; margin: 50px; display: block; overflow: hidden; white-space: nowrap")
+                    span появился Хер
+
                 p.text
+                    span Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta excepturi enim mollitia quae asperiores quibusdam, eaque, blanditiis facilis rem eveniet sunt? Quisquam amet quis dolorem debitis accusamus repellendus consequuntur aspernatur.
+                    span Rerum repellat laboriosam perferendis labore, ipsa dolorem expedita doloribus quidem similique illo numquam, odio perspiciatis aperiam veniam, quis nam facere voluptatem explicabo fugiat non id nulla? Dignissimos provident voluptate possimus.
+                    span Cupiditate optio beatae error aspernatur eligendi corporis numquam quibusdam est! Libero nam ab aperiam quae vitae enim quibusdam amet officiis dolorum inventore. Veritatis provident corrupti sequi facere suscipit ipsam dolore!
+                    span A, optio accusantium! Officia quis incidunt deleniti doloremque nemo, possimus inventore adipisci atque sit iusto sunt labore, molestias nostrum. Sed id veritatis provident, error explicabo harum obcaecati ad pariatur blanditiis?
+                    span Debitis, eveniet nobis explicabo dicta delectus distinctio, deleniti id ipsam aut pariatur sed perspiciatis. Atque modi laboriosam aperiam aut labore eaque esse dolore corrupti at! Eaque nihil omnis odit cumque.
+                    p.text
                     span Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta excepturi enim mollitia quae asperiores quibusdam, eaque, blanditiis facilis rem eveniet sunt? Quisquam amet quis dolorem debitis accusamus repellendus consequuntur aspernatur.
                     span Rerum repellat laboriosam perferendis labore, ipsa dolorem expedita doloribus quidem similique illo numquam, odio perspiciatis aperiam veniam, quis nam facere voluptatem explicabo fugiat non id nulla? Dignissimos provident voluptate possimus.
                     span Cupiditate optio beatae error aspernatur eligendi corporis numquam quibusdam est! Libero nam ab aperiam quae vitae enim quibusdam amet officiis dolorum inventore. Veritatis provident corrupti sequi facere suscipit ipsam dolore!
@@ -62,6 +69,23 @@ html(lang="ru")
                     span A, optio accusantium! Officia quis incidunt deleniti doloremque nemo, possimus inventore adipisci atque sit iusto sunt labore, molestias nostrum. Sed id veritatis provident, error explicabo harum obcaecati ad pariatur blanditiis?
                     span Debitis, eveniet nobis explicabo dicta delectus distinctio, deleniti id ipsam aut pariatur sed perspiciatis. Atque modi laboriosam aperiam aut labore eaque esse dolore corrupti at! Eaque nihil omnis odit cumque.
             .footer
+
+            .modal
+                .modal-dialog
+                    .modal-content
+                        button.close
+                        .modal-header
+                            .modal-title Modal title #1
+                        .modal-body  Lorem ipsum dolor sit
+            .modal2
+                .modal-dialog
+                    .modal-content
+                        button.close
+                        .modal-header
+                            .modal-title Modal title #2
+                        .modal-body  Lorem ipsum dolor sit
+
+
         script(src = "assets/js/result.js")
 
 
