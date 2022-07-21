@@ -1,3 +1,5 @@
+@import "../global/vars";
+
 .dnd-modal {
     position: fixed;
     top: 0;
@@ -50,6 +52,61 @@
             height: 3px;
             background-color: red;
             transform: rotate(-45deg) translate(-50%);
+        }
+    }
+}
+
+.dnd-modal-dynamic {
+    &-dialog {
+        max-width: 500px;
+    }
+
+    &-content {
+        background-color: #ffffff;
+    }
+
+    &-header {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: $dark;
+        font-size: 30px;
+        text-align: center;
+        border-bottom: 1px solid $dark;
+    }
+
+    &-body {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: $dark;
+        font-size: 22px;
+        text-align: center;
+    }
+
+    &-footer {
+        margin-top: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: flex;
+        justify-content: center;
+    }
+
+    &-close-footer {
+        width: 150px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $dark;
+        background-color: #ffffff;
+        border: 1px solid $dark;
+        border-radius: 5px;
+        font-size: 25px;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: $success;
+        cursor: pointer;
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.1);
         }
     }
 }
