@@ -3,9 +3,11 @@ import dnd from "../core"
 dnd.prototype.dropDownMenu = function () {
     const _setEvent = (btn, toogleId) => {
         btn.addEventListener("click", () => {
-            dnd(`[data-toogle-id = ${toogleId}]`).heightIn({
+            dnd(`[data-toogle-id = ${toogleId}]`).animateToogle({
                 duration: 300,
-                autoValue: true
+                styleProperty: "height",
+                autoValue: true,
+                units: "px"
             })
         })
     }

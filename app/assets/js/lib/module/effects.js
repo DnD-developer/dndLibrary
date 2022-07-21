@@ -30,7 +30,7 @@ dnd.prototype.animateStart = function ({ duration, animateAction, maxValue, fina
     return _animationMake
 }
 
-dnd.prototype.applyAnimateIn = function ({ elem, duration, display, finallyFunction, styleProperty, maxValue, units, autoValue }) {
+dnd.prototype.applyAnimateIn = function (elem, { duration, display, finallyFunction, styleProperty, maxValue, units, autoValue }) {
     const _applyAnimate = () => {
         let triggerStart = true
         if (autoValue && triggerStart) {
@@ -58,7 +58,7 @@ dnd.prototype.applyAnimateIn = function ({ elem, duration, display, finallyFunct
     _applyAnimate()
 }
 
-dnd.prototype.applyAnimateOut = function ({ elem, duration, finallyFunction, styleProperty, maxValue, units, autoValue }) {
+dnd.prototype.applyAnimateOut = function (elem, { duration, finallyFunction, styleProperty, maxValue, units, autoValue }) {
     const _applyAnimate = () => {
         let triggerStart = true
         if (autoValue && triggerStart) {
@@ -87,101 +87,46 @@ dnd.prototype.applyAnimateOut = function ({ elem, duration, finallyFunction, sty
     _applyAnimate()
 }
 
-dnd.prototype.selectAnimate = function ({ elem, duration, display, finallyFunction, styleProperty, maxValue, units, autoValue }) {
+dnd.prototype.selectAnimate = function (elem, objArguments) {
     if (window.getComputedStyle(elem).display === "none") {
-        this.applyAnimateIn({
-            elem,
-            duration,
-            display,
-            finallyFunction,
-            styleProperty,
-            maxValue,
-            units,
-            autoValue
-        })
+        this.applyAnimateIn(elem, this.arguments(objArguments))
     } else {
-        this.applyAnimateOut({
-            elem,
-            duration,
-            finallyFunction,
-            styleProperty,
-            maxValue,
-            units,
-            autoValue
-        })
+        this.applyAnimateOut(elem, this.arguments(objArguments))
     }
 }
 
-dnd.prototype.callAnimate = function ({ animateFunction, duration, display, styleProperty, finallyFunction, maxValue, units, autoValue }) {
+dnd.prototype.callAnimate = function (animateFunction, objArguments) {
     if (this.length > 1) {
-        this.elements.forEach((elem) =>
-            this[animateFunction]({
-                elem,
-                duration,
-                display,
-                finallyFunction,
-                styleProperty,
-                maxValue,
-                autoValue,
-                units
-            })
-        )
+        this.elements.forEach((elem) => this[animateFunction](elem, this.arguments(objArguments)))
     } else {
-        this[animateFunction]({
-            elem: this.elements,
-            duration,
-            display,
-            finallyFunction,
-            styleProperty,
-            maxValue,
-            autoValue,
-            units
-        })
+        this[animateFunction](this.elements, this.arguments(objArguments))
     }
 }
 
+dnd.prototype.arguments = function (objArguments) {
+    let { duration, display, styleProperty, finallyFunction, maxValue, units, autoValue } = objArguments
+    return { duration, display, styleProperty, finallyFunction, maxValue, units, autoValue }
+}
+
+dnd.prototype.argumentsByDefault = function (objArguments) {
+    let { duration, display = "block", styleProperty, finallyFunction, maxValue = 1, units = "", autoValue = false } = objArguments
+    return { duration, display, styleProperty, finallyFunction, maxValue, units, autoValue }
+}
 // !Технические методы end
 
-dnd.prototype.animateIn = function ({ duration, display = "block", styleProperty, finallyFunction, maxValue = 1, units = "", autoValue = false }) {
-    this.callAnimate({
-        animateFunction: "applyAnimateIn",
-        duration,
-        display,
-        finallyFunction,
-        styleProperty,
-        maxValue,
-        autoValue,
-        units
-    })
+dnd.prototype.animateIn = function (objArguments) {
+    this.callAnimate("applyAnimateIn", this.argumentsByDefault(objArguments))
 
     return this
 }
 
-dnd.prototype.animateOut = function ({ duration, finallyFunction, display = "block", styleProperty, maxValue = 1, units = "", autoValue = false }) {
-    this.callAnimate({
-        animateFunction: "applyAnimateOut",
-        duration,
-        display,
-        finallyFunction,
-        styleProperty,
-        maxValue,
-        autoValue,
-        units
-    })
+dnd.prototype.animateOut = function (objArguments) {
+    this.callAnimate("applyAnimateOut", this.argumentsByDefault(objArguments))
     return this
 }
 
-dnd.prototype.animateToogle = function ({ duration, display = "block", styleProperty, finallyFunction, maxValue = 1, units = "", autoValue = false }) {
-    this.callAnimate({
-        animateFunction: "selectAnimate",
-        duration,
-        display,
-        finallyFunction,
-        styleProperty,
-        maxValue,
-        autoValue,
-        units
-    })
+dnd.prototype.animateToogle = function (objArguments) {
+    this.callAnimate("selectAnimate", this.argumentsByDefault(objArguments))
 
     return this
 }

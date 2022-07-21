@@ -4,5 +4,11 @@
 @import "./global/_global";
 @import "./components/ui";
 // !Start code
-
+.menus {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 150px;
+    margin-top: 150px;
+}
 @import "./global/_media";
