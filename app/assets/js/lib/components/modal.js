@@ -68,13 +68,7 @@ dnd.prototype.enableScroll = function (isClosed) {
 // !Технические функции end
 
 dnd.prototype.modalCreate = function ({ triggers, btnClose, dialog, content, isOpen, isClosed }) {
-    if (this.length > 1) {
-        this.elements.forEach((elem) => {
-            this.modalInit(elem, { btnClose, dialog, content, isClosed })
-        })
-    } else {
-        this.modalInit(this.elements, { btnClose, dialog, content, isClosed })
-    }
+    this.modalInit(this.elements, { btnClose, dialog, content, isClosed })
 
     if (dnd(triggers).length > 1) {
         dnd(triggers).elements.forEach((elem) => {

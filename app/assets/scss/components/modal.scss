@@ -19,7 +19,7 @@
     &-content {
         position: relative;
         width: 100%;
-        border-radius: 4px;
+        border-radius: 10px;
         max-height: 80vh;
         overflow-y: auto;
     }
@@ -99,7 +99,7 @@
         color: $dark;
         background-color: #ffffff;
         border: 1px solid $dark;
-        border-radius: 5px;
+        border-radius: 10px;
         font-size: 25px;
         font-weight: 800;
         text-transform: uppercase;
